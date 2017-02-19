@@ -38,23 +38,16 @@ define('PAGE', 'members');
 		<div class="col-md-12">
 		  
 		  <?php
-		  // Get members/staff members
-		  if(!isset($_GET['v'])){
-			  // All users/groups
 			  $users = $queries->orderAll("users", "USERNAME", "ASC");
 			  $groups = $queries->getAll("groups", array("id", "<>", 0));
-		  } else {
-			  // Just get users in the selected group
-			  $users = $queries->orderWhere('users', 'group_id = ' . htmlspecialchars($selected_staff_group->id), 'USERNAME', 'ASC');
-		  }
 		  ?>
 		  
 			  <table class="table table-striped table-bordered table-hover dataTables-users" >
 			    <thead>
 				  <tr>
-				    <th>Username</th>
-				    <th>Group</th>
-				    <th>Created</th>
+				    <th><?php echo $members_language->get('members', 'username'); ?></th>
+				    <th><?php echo $members_language->get('members', 'group'); ?></th>
+				    <th><?php echo $members_language->get('members', 'created'); ?></th>
 				  </tr>
 			    </thead>
 			    <tbody>

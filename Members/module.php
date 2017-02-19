@@ -2,12 +2,12 @@
 /*
  *	Made by Partydragen
  *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-dev
+ *  NamelessMC version 2.0.0-pr2
  *
  *  License: MIT
  *
- *  Members List module info file
+ *  Members module info file
  */
 
-$module_version = '2.0.0';
+$module_version = '2.0.0-pr2';
 $nameless_version = '2.0.0-pr2';

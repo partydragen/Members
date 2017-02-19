@@ -10,5 +10,8 @@
  */
 
 $language = array( 
-	'members' => 'Members'
+	'members' => 'Members',
+	'username' => 'Username',
+	'group' => 'Group',
+	'created' => 'Created'
 );
