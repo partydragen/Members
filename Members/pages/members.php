@@ -19,7 +19,7 @@ define('PAGE', 'members');
 
     <!-- Site Properties -->
 	<?php 
-	$title = $language->get('general', 'home');
+	$title = $members_language->get('members', 'members');
 	require('core/templates/header.php'); 
 	?>
   
