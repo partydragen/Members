@@ -13,7 +13,7 @@
 $module_installed = $cache->retrieve('module_members');
 
 // Initialise forum language
-$members_language = new Language('modules/Members/language', LANGUAGE);
+$members_language = new Language(ROOT_PATH . 'modules/Members/language', LANGUAGE);
 
 // Define URLs which belong to this module
 $pages->add('Members', '/members', 'pages/members.php');
