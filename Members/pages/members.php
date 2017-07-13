@@ -1,6 +1,6 @@
 <?php
 /*
- *	Made by Partydragen
+ *  Made by Partydragen And Samerton
  *  https://github.com/NamelessMC/Nameless/
  *
  *  License: MIT
