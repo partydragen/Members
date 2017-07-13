@@ -25,83 +25,55 @@ define('PAGE', 'members');
   
   </head>
   <body>
-  
-  
-  
-  
-  
-  
-<div class="container" style="padding-top: 5rem;">
-	<div class="card">
-	<div class="card-block">
-	  <div class="row">
-		<div class="col-md-12">
-		  
-		  <?php
-			  $users = $queries->orderAll("users", "USERNAME", "ASC");
-			  $groups = $queries->getAll("groups", array("id", "<>", 0));
-		  ?>
-		  
-			  <table class="table table-striped table-bordered table-hover dataTables-users" >
-			    <thead>
-				  <tr>
-				    <th><?php echo $members_language->get('members', 'username'); ?></th>
-				    <th><?php echo $members_language->get('members', 'group'); ?></th>
-				    <th><?php echo $members_language->get('members', 'created'); ?></th>
-				  </tr>
-			    </thead>
-			    <tbody>
-				  <?php
-				  foreach($users as $individual){
-					if(isset($selected_staff_group)){
-						$user_group = $selected_staff_group->group_html;
-					} else {
-						$user_group = "";
-						foreach($groups as $group){
-							if($group->id === $individual->group_id){
-							  $user_group = $group->group_html;
-							  break;
-							}
-						}
-					}
-					// Get avatar
-					$avatar = '<img class="img-rounded" style="width:35px; height:35px;" src="' . $user->getAvatar($individual->id, "../", 35) . '" />';
-				  ?>
-				  <tr>
-				    <td><?php echo ($avatar) ?> <a href="<?php echo URL::build('/profile/' . $individual->username); ?>"><?php echo htmlspecialchars($individual->username); ?></a></td>
-				    <td><?php echo $user_group; ?></td>
-				    <td><?php echo date('d M Y', $individual->joined); ?></td>
-				  </tr>
-				  <?php
-				  }
-				  ?>
-			    </tbody>
-			  </table>
-		</div>
-		</div>
-    </div>
-	</div>
-</div>
+    <?php
+	require('core/templates/navbar.php');
+	require('core/templates/footer.php');
+
+	$users = $queries->orderAll("users", "USERNAME", "ASC");
+	$groups = $queries->getAll("groups", array("id", "<>", 0));
+	$user_array = array();
+
+	foreach($users as $individual){
+		if(isset($selected_staff_group)){
+			$user_group = $selected_staff_group->group_html;
+		} else {
+			$user_group = "";
+			foreach($groups as $group){
+				if($group->id === $individual->group_id){
+				  $user_group = $group->group_html;
+				  $style = $group->group_username_css;
+				  break;
+				}
+			}
+		}
+		
+		$avatar = $user->getAvatar($individual->id, "../", 35);
+		
+		$user_array[] = array(
+			'username' => Output::getClean($individual->username),
+			'nickname' => Output::getClean($individual->nickname),
+			'avatar' => $avatar,
+			'group' => $user_group,
+			'group_colour' => $style,
+			'joined' => date('d M Y', $individual->joined),
+			'profile' => URL::build('/profile/' . Output::getClean($individual->username))
+		);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    <?php 
-	require('core/templates/navbar.php'); 
-	require('core/templates/footer.php'); 
+	// Language values
+	$smarty->assign(array(
+		'USERNAME' => $members_language->get('members', 'username'),
+		'GROUP' => $members_language->get('members', 'group'),
+		'CREATED' => $members_language->get('members', 'created'),
+		'MEMBERS' => $user_array
+	));
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/members.tpl');
 
     require('core/templates/scripts.php'); ?>
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap.js"></script>
+	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
 
 	<script type="text/javascript">
         $(document).ready(function() {
