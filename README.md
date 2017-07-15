@@ -1,5 +1,7 @@
 Members List module for NamelessMC v2
 
+NOTE: You need to use latest template update above pr2 for this module to work correct
+
 How to install:
 Step 1: Add the "Members" folder too /modules/
 Step 2: Add the "members.tld" file to /custom/templates/Default/
