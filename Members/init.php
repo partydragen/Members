@@ -16,7 +16,7 @@ $module_installed = $cache->retrieve('module_members');
 $members_language = new Language(ROOT_PATH . '/modules/Members/language', LANGUAGE);
 
 // Define URLs which belong to this module
-$pages->add('Members', '/members', 'pages/members.php');
+$pages->add('Members', '/members', 'pages/members.php', 'members', true);
 
 // Add link to navbar
 $navigation->add('members', $members_language->get('members', 'members'), URL::build('/members'));

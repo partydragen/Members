@@ -1,6 +1,10 @@
 {include file='navbar.tpl'}
 
 <div class="container">
+  {if !empty($WIDGETS)}
+  <div class="row">
+    <div class="col-md-9">
+  {/if}
   <div class="card">
 	<div class="card-block">
 	  <div class="table-responsive">
@@ -25,6 +29,15 @@
 	  </div>
 	</div>
   </div>
+  {if !empty($WIDGETS)}
+  </div>
+  <div class="col-md-3">
+  {foreach from=$WIDGETS item=widget}
+    {$widget}<br /><br />
+  {/foreach}
+  </div>
+  </div>
+  {/if}
 </div>
 
 {include file='footer.tpl'}
