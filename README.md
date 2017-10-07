@@ -1,8 +1,8 @@
-Members List module for NamelessMC v2
+# Members List Module for NamelessMC v2.0.0 pr3
 
-NOTE: You need to use latest template update above pr2 for this module to work correct
+## Installation:
+- Upload the contents of the **upload** directory straight into your NamelessMC installation's directory
+- Activate the module in the AdminCP -> Modules tab
 
-How to install:
-Step 1: Add the "Members" folder too /modules/
-Step 2: Add the "members.tld" file to /custom/templates/Default/
-Step 3: Install and enable the addon in your AdminCP
+## Notes:
+- If you are using a custom template, make sure you add the template file (in the **custom/templates/Default** directory) to your custom template!

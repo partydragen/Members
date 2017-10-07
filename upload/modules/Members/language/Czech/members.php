@@ -1,8 +1,8 @@
 <?php 
 /*
  *	Made by Partydragen, translated by Renzotom
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr2
+ *  https://github.com/partydragen/Members/
+ *  NamelessMC version 2.0.0-pr3
  *
  *  License: MIT
  *
