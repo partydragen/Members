@@ -13,5 +13,8 @@ $language = array(
 	'members' => 'Uživatelé',
 	'username' => 'Uživatelské jméno',
 	'group' => 'Skupina',
-	'created' => 'Vytvořeno'
+	'created' => 'Vytvořeno',
+	'link_location' => 'Link Location',
+	'icon' => 'Icon',
+	'icon_example' => 'Example: <i class="fa fa-users" aria-hidden="true"></i>',
 );

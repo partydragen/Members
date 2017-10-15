@@ -6,12 +6,15 @@
  *
  *  License: MIT
  *
- *  EnglishUK Language for Members module
+ *  Norwegian Language for Members module
  */
 
 $language = array( 
 	'members' => 'Medlemmer',
 	'username' => 'Brukernavn',
 	'group' => 'Gruppe',
-	'created' => 'Opprettet'
+	'created' => 'Opprettet',
+	'link_location' => 'Link plassering',
+	'icon' => 'Ikon',
+	'icon_example' => 'Eksempel: <i class="fa fa-users" aria-hidden="true"></i>',
 );

@@ -13,5 +13,8 @@ $language = array(
 	'members' => 'Members',
 	'username' => 'Username',
 	'group' => 'Group',
-	'created' => 'Created'
+	'created' => 'Created',
+	'link_location' => 'Link Location',
+	'icon' => 'Icon',
+	'icon_example' => 'Example: <i class="fa fa-users" aria-hidden="true"></i>',
 );
