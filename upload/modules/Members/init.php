@@ -19,7 +19,6 @@ $members_language = new Language(ROOT_PATH . '/modules/Members/language', LANGUA
 $pages->add('Members', '/members', 'pages/members.php', 'members', true);
 $pages->add('Members', '/admin/members', 'pages/admin/members.php');
 
-    $members_order = 3;
 // Add link to admin sidebar
 if(!isset($admin_sidebar)) $admin_sidebar = array();
 $admin_sidebar['members'] = array(

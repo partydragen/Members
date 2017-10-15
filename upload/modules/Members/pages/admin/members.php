@@ -74,7 +74,7 @@ if(Input::exists()){
 			}
 		}
 	} else {
-		echo '<div class="alert alert-warning">' . $admin_language['invalid_token'] . '</div>';
+		$error = $language->get('general', 'invalid_token');
 	}
 }
 $cache->setCache('members_module_cache');
@@ -116,6 +116,7 @@ $icon = $cache->retrieve('icon');
 		  <div class="card">
 		    <div class="card-block">
 				<h3 style="display:inline;"><?php echo $members_language->get('members', 'members'); ?></h3>
+				<?php if(isset($error)) echo '<div class="alert alert-danger">' . $error . '</div>'; ?>
 				<form action="" method="post">
 				  <div class="form-group">
 					<label for="link_location"><?php echo $members_language->get('members', 'link_location'); ?></label>
