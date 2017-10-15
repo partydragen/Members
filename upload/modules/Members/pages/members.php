@@ -1,6 +1,7 @@
 <?php
 /*
  *	Made by Partydragen And Samerton
+ *      edit by H4nSolo
  *  https://github.com/partydragen/Members/
  *  NamelessMC version 2.0.0-pr3
  *
@@ -29,15 +30,38 @@ define('PAGE', 'members');
     <?php
 	require('core/templates/navbar.php');
 	require('core/templates/footer.php');
+	
+	
+	if($_GET['route'] == "/members/")
+	{
+		$users = $queries->orderAll("users", "USERNAME", "ASC");			
+	} else {
+		$usergroups1 = explode('/', $_GET['route']);
+		$usergroups2 = explode('_', $usergroups1[3]);
+		$users = $queries->getWhere('users', array('group_id', '=', $usergroups2[1]));
 
-	$users = $queries->orderAll("users", "USERNAME", "ASC");
+		}
+
+
+	
 	$groups = $queries->getAll("groups", array("id", "<>", 0));
 	$user_array = array();
-
+	
+	
+	foreach($groups as $group1){
+	  $group_array[] = array(
+		 'groupname' => $group1->name,
+		 'grouplink' => URL::build('/members/sort/' . Output::getClean($group1->name) .'_'. Output::getClean($group1->id)),
+		 'groupcolor' => $group1->group_username_css
+	  );
+	}
+	
 	foreach($users as $individual){
 		if(isset($selected_staff_group)){
 			$user_group = $selected_staff_group->group_html;
 		} else {
+
+		  
 			$user_group = "";
 			foreach($groups as $group){
 				if($group->id === $individual->group_id){
@@ -47,6 +71,7 @@ define('PAGE', 'members');
 				}
 			}
 		}
+
 		
 		$avatar = $user->getAvatar($individual->id, "../", 35);
 		
@@ -63,10 +88,12 @@ define('PAGE', 'members');
 	
 	// Language values
 	$smarty->assign(array(
+		'MEMBER' => $members_language->get('members', 'registered_members'),
 		'USERNAME' => $members_language->get('members', 'username'),
 		'GROUP' => $members_language->get('members', 'group'),
 		'CREATED' => $members_language->get('members', 'created'),
-		'MEMBERS' => $user_array
+		'MEMBERS' => $user_array,
+		'GROUPS' => $group_array
 	));
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/members.tpl');
