@@ -30,7 +30,7 @@ define('PAGE', 'members');
 	require('core/templates/navbar.php');
 	require('core/templates/footer.php');
 
-	if($_GET['route'] == "/members/") {
+	if(rtrim($_GET['route'], '/') == "/members") {
 		$users = $queries->orderAll("users", "USERNAME", "ASC");			
 	} else {
 		$usergroups1 = explode('/', $_GET['route']);
