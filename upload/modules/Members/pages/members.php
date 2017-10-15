@@ -30,9 +30,23 @@ define('PAGE', 'members');
 	require('core/templates/navbar.php');
 	require('core/templates/footer.php');
 
-	$users = $queries->orderAll("users", "USERNAME", "ASC");
+	if($_GET['route'] == "/members/") {
+		$users = $queries->orderAll("users", "USERNAME", "ASC");			
+	} else {
+		$usergroups1 = explode('/', $_GET['route']);
+		$usergroups2 = explode('_', $usergroups1[3]);
+		$users = $queries->getWhere('users', array('group_id', '=', $usergroups2[1]));
+	}
+
 	$groups = $queries->getAll("groups", array("id", "<>", 0));
 	$user_array = array();
+	
+	foreach($groups as $group1){
+	  $group_array[] = array(
+		 'groupname' => $group1->name,
+		 'grouplink' => URL::build('/members/sort/' . Output::getClean($group1->name) .'_'. Output::getClean($group1->id)),
+	  );
+	}
 
 	foreach($users as $individual){
 		if(isset($selected_staff_group)){
@@ -66,7 +80,10 @@ define('PAGE', 'members');
 		'USERNAME' => $members_language->get('members', 'username'),
 		'GROUP' => $members_language->get('members', 'group'),
 		'CREATED' => $members_language->get('members', 'created'),
-		'MEMBERS' => $user_array
+		'DISPLAY_ALL' => $members_language->get('members', 'all'),
+		'MEMBERS' => $user_array,
+		'GROUPS' => $group_array,
+		'ALL_LINK' => URL::build('/members')
 	));
 	
 	$smarty->display('custom/templates/' . TEMPLATE . '/members.tpl');

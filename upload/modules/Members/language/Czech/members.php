@@ -17,4 +17,5 @@ $language = array(
 	'link_location' => 'Link Location',
 	'icon' => 'Icon',
 	'icon_example' => 'Example: <i class="fa fa-users" aria-hidden="true"></i>',
+	'all' => 'All'
 );
