@@ -6,7 +6,7 @@
     <div class="col-md-9">
   {/if}
   <div class="card">
-	<div class="card-block">
+	<div class="card-body">
 	  <div class="table-responsive">
 	  <ul class="nav nav-tabs">
 		<li class="nav-item">
