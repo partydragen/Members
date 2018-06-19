@@ -11,7 +11,7 @@
  *  Last Update: 19/06/2018
  */
 $language = array( 
-	'members' => 'Membrii',
+	'members' => 'Membri',
 	'username' => 'Nume de utilizator',
 	'group' => 'Grup',
 	'created' => 'Data înscrierii',
