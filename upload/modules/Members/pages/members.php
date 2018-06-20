@@ -2,7 +2,7 @@
 /*
  *	Made by Partydragen And Samerton
  *  https://github.com/partydragen/Members/
- *  NamelessMC version 2.0.0-pr3
+ *  NamelessMC version 2.0.0-pr4
  *
  *  License: MIT
  */
@@ -103,7 +103,11 @@ define('PAGE', 'members');
 					"info": "<?php echo $language->get('table', 'page_x_of_y'); ?>",
 					"infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
 					"infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
-					"search": "<?php echo $language->get('general', 'search'); ?> "
+					"search": "<?php echo $language->get('general', 'search'); ?> ",
+					"paginate": {
+					    "next": "<?php echo $language->get('general', 'next'); ?>",
+					    "previous": "<?php echo $language->get('general', 'previous'); ?>"
+					}
 				}
             });
 		});
