@@ -2,93 +2,90 @@
 /*
  *	Made by Partydragen And Samerton
  *  https://github.com/partydragen/Members/
- *  NamelessMC version 2.0.0-pr3
+ *  https://partydragen.com/
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  */
 
 // Always define page name
 define('PAGE', 'members');
-?>
-<!DOCTYPE html>
-<html lang="<?php echo (defined('HTML_LANG') ? HTML_LANG : 'en'); ?>">
-  <head>
-    <!-- Standard Meta -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+$page_title = $members_language->get('members', 'members');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-    <!-- Site Properties -->
-	<?php 
-	$title = $members_language->get('members', 'members');
-	require('core/templates/header.php'); 
-	?>
-  
-  </head>
-  <body>
-    <?php
-	require('core/templates/navbar.php');
-	require('core/templates/footer.php');
+if(rtrim($_GET['route'], '/') == "/members") {
+	$users = $queries->orderAll("users", "USERNAME", "ASC");			
+} else {
+	$usergroups1 = explode('/', $_GET['route']);
+	$usergroups2 = explode('_', $usergroups1[3]);
+	$users = $queries->getWhere('users', array('group_id', '=', $usergroups2[1]));
+}
 
-	if(rtrim($_GET['route'], '/') == "/members") {
-		$users = $queries->orderAll("users", "USERNAME", "ASC");			
-	} else {
-		$usergroups1 = explode('/', $_GET['route']);
-		$usergroups2 = explode('_', $usergroups1[3]);
-		$users = $queries->getWhere('users', array('group_id', '=', $usergroups2[1]));
-	}
-
-	$groups = $queries->getAll("groups", array("id", "<>", 0));
-	$user_array = array();
+$groups = $queries->orderAll('groups', '`order`', 'ASC');
+$user_array = array();
 	
-	foreach($groups as $group1){
-	  $group_array[] = array(
-		 'groupname' => $group1->name,
-		 'grouplink' => URL::build('/members/sort/' . Output::getClean($group1->name) .'_'. Output::getClean($group1->id)),
-	  );
-	}
+foreach($groups as $group1){
+	$group_array[] = array(
+		'groupname' => $group1->name,
+		'grouplink' => URL::build('/members/sort/' . Output::getClean($group1->name) .'_'. Output::getClean($group1->id)),
+	);
+}
 
-	foreach($users as $individual){
-		if(isset($selected_staff_group)){
-			$user_group = $selected_staff_group->group_html;
-		} else {
-			$user_group = "";
-			foreach($groups as $group){
-				if($group->id === $individual->group_id){
-				  $user_group = $group->group_html;
-				  $style = $group->group_username_css;
-				  break;
-				}
+foreach($users as $individual){
+	if(isset($selected_staff_group)){
+		$user_group = $selected_staff_group->group_html;
+	} else {
+		$user_group = "";
+		foreach($groups as $group){
+			if($group->id === $individual->group_id){
+				$user_group = $group->group_html;
+				$style = $group->group_username_css;
+				break;
 			}
 		}
-		
-		$avatar = $user->getAvatar($individual->id, "../", 35);
-		
-		$user_array[] = array(
-			'username' => Output::getClean($individual->username),
-			'nickname' => Output::getClean($individual->nickname),
-			'avatar' => $avatar,
-			'group' => $user_group,
-			'group_colour' => $style,
-			'joined' => date('d M Y', $individual->joined),
-			'profile' => URL::build('/profile/' . Output::getClean($individual->username))
-		);
 	}
+		
+	$avatar = $user->getAvatar($individual->id, "../", 35);
+		
+	$user_array[] = array(
+		'username' => Output::getClean($individual->username),
+		'nickname' => Output::getClean($individual->nickname),
+		'avatar' => $avatar,
+		'group' => $user_group,
+		'group_colour' => $style,
+		'joined' => date('d M Y', $individual->joined),
+		'profile' => URL::build('/profile/' . Output::getClean($individual->username))
+	);
+}
 	
-	// Language values
-	$smarty->assign(array(
-		'USERNAME' => $members_language->get('members', 'username'),
-		'GROUP' => $members_language->get('members', 'group'),
-		'CREATED' => $members_language->get('members', 'created'),
-		'DISPLAY_ALL' => $members_language->get('members', 'all'),
-		'MEMBERS' => $user_array,
-		'GROUPS' => $group_array,
-		'ALL_LINK' => URL::build('/members')
-	));
+// Language values
+$smarty->assign(array(
+	'USERNAME' => $members_language->get('members', 'username'),
+	'GROUP' => $members_language->get('members', 'group'),
+	'CREATED' => $members_language->get('members', 'created'),
+	'DISPLAY_ALL' => $members_language->get('members', 'all'),
+	'MEMBERS' => $user_array,
+	'GROUPS' => $group_array,
+	'ALL_LINK' => URL::build('/members')
+));
 	
-	$smarty->display('custom/templates/' . TEMPLATE . '/members.tpl');
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
 
-    require('core/templates/scripts.php'); ?>
+$page_load = microtime(true) - $start;
+define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+
+$template->onPageLoad();
+
+$smarty->assign('WIDGETS', $widgets->getWidgets());
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+	
+// Display template
+$template->displayTemplate('members.tpl', $smarty);
+
+?>
 	
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
 	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
@@ -108,6 +105,3 @@ define('PAGE', 'members');
             });
 		});
 	</script>
-
-  </body>
-</html>

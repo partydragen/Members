@@ -2,7 +2,8 @@
 /*
  *	Made by Partydragen, translated by Renzotom
  *  https://github.com/partydragen/Members/
- *  NamelessMC version 2.0.0-pr3
+ *  https://partydragen.com/
+ *  NamelessMC version 2.0.0-pr5
  *
  *  License: MIT
  *
