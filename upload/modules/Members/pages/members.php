@@ -77,6 +77,31 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
+$template->addCSSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
+));
+
+$template->addJSFiles(array(
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => array()
+));
+
+$template->addJSScript('
+	$(document).ready(function() {
+		$(\'.dataTables-users\').dataTable({
+			responsive: true,
+			language: {
+				"lengthMenu": "' . $language->get('table', 'display_records_per_page') . '",
+				"zeroRecords": "' . $language->get('table', 'nothing_found') . '",
+				"info": "' . $language->get('table', 'page_x_of_y') . '",
+				"infoEmpty": "' . $language->get('table', 'no_records') . '",
+				"infoFiltered": "' . $language->get('table', 'filtered') . '",
+				"search": "' . $language->get('general', 'search') . ' "
+			}
+		});
+	});
+');
+
 $smarty->assign('WIDGETS', $widgets->getWidgets());
 
 require(ROOT_PATH . '/core/templates/navbar.php');
@@ -84,24 +109,3 @@ require(ROOT_PATH . '/core/templates/footer.php');
 	
 // Display template
 $template->displayTemplate('members.tpl', $smarty);
-
-?>
-	
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/jquery.dataTables.min.js"></script>
-	<script src="<?php if(defined('CONFIG_PATH')) echo CONFIG_PATH . '/'; else echo '/'; ?>core/assets/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
-
-	<script type="text/javascript">
-        $(document).ready(function() {
-            $('.dataTables-users').dataTable({
-                responsive: true,
-				language: {
-					"lengthMenu": "<?php echo $language->get('table', 'display_records_per_page'); ?>",
-					"zeroRecords": "<?php echo $language->get('table', 'nothing_found'); ?>",
-					"info": "<?php echo $language->get('table', 'page_x_of_y'); ?>",
-					"infoEmpty": "<?php echo $language->get('table', 'no_records'); ?>",
-					"infoFiltered": "<?php echo $language->get('table', 'filtered'); ?>",
-					"search": "<?php echo $language->get('general', 'search'); ?> "
-				}
-            });
-		});
-	</script>
