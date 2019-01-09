@@ -96,7 +96,11 @@ $template->addJSScript('
 				"info": "' . $language->get('table', 'page_x_of_y') . '",
 				"infoEmpty": "' . $language->get('table', 'no_records') . '",
 				"infoFiltered": "' . $language->get('table', 'filtered') . '",
-				"search": "' . $language->get('general', 'search') . ' "
+				"search": "' . $language->get('general', 'search') . ' ",
+				"paginate": {
+					"next": "' . $this->_language->get('general', 'next') . '",
+					"previous": "' . $this->_language->get('general', 'previous') . '"
+				}
 			}
 		});
 	});
