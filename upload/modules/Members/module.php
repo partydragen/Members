@@ -3,7 +3,7 @@
  *	Made by Partydragen And Samerton
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  *
@@ -18,8 +18,8 @@ class Members_Module extends Module {
 		
 		$name = 'Members';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.0.0-pr5';
-		$nameless_version = '2.0.0-pr5';
+		$module_version = '2.0.0-pr6';
+		$nameless_version = '2.0.0-pr6';
 		
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 		
@@ -32,15 +32,19 @@ class Members_Module extends Module {
 		// Queries
 		$queries = new Queries();
 		
-		// Update main admin group permissions
-		$group = $queries->getWhere('groups', array('id', '=', 2));
-		$group = $group[0];
-		
-		$group_permissions = json_decode($group->permissions, TRUE);
-		$group_permissions['memberslist.edit'] = 1;
-		
-		$group_permissions = json_encode($group_permissions);
-		$queries->update('groups', 2, array('permissions' => $group_permissions));
+		try {
+			// Update main admin group permissions
+			$group = $queries->getWhere('groups', array('id', '=', 2));
+			$group = $group[0];
+			
+			$group_permissions = json_decode($group->permissions, TRUE);
+			$group_permissions['memberslist.edit'] = 1;
+			
+			$group_permissions = json_encode($group_permissions);
+			$queries->update('groups', 2, array('permissions' => $group_permissions));
+		} catch(Exception $e){
+			// Error
+		}
 	}
 
 	public function onUninstall(){

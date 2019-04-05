@@ -3,7 +3,7 @@
  *	Made by Partydragen And Samerton
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr5
+ *  NamelessMC version 2.0.0-pr6
  *
  *  License: MIT
  */
@@ -60,6 +60,7 @@ foreach($users as $individual){
 	
 // Language values
 $smarty->assign(array(
+	'MEMBERS_TITLE' => $members_language->get('members', 'members'),
 	'USERNAME' => $members_language->get('members', 'username'),
 	'GROUP' => $members_language->get('members', 'group'),
 	'CREATED' => $members_language->get('members', 'created'),
@@ -77,6 +78,7 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
+if(TEMPLATE != 'DefaultRevamp') {
 $template->addCSSFiles(array(
 	(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
 ));
@@ -98,13 +100,29 @@ $template->addJSScript('
 				"infoFiltered": "' . $language->get('table', 'filtered') . '",
 				"search": "' . $language->get('general', 'search') . ' ",
 				"paginate": {
-					"next": "' . $this->_language->get('general', 'next') . '",
-					"previous": "' . $this->_language->get('general', 'previous') . '"
+					"next": "' . $language->get('general', 'next') . '",
+					"previous": "' . $language->get('general', 'previous') . '"
 				}
 			}
 		});
 	});
 ');
+} else {
+	
+	$template->addJSFiles(array(
+		'https://code.jquery.com/jquery-3.3.1.js' => array(),
+		'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' => array(),
+		'https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js' => array(),
+		'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js' => array()
+	));
+
+	
+	$template->addJSScript('
+		$(document).ready(function() {
+		$(\'#example\').DataTable();
+		} );
+	');
+}
 
 $smarty->assign('WIDGETS', $widgets->getWidgets());
 
