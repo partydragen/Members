@@ -125,7 +125,7 @@ class Members_Module extends Module {
 				}
 				
 				$navs[2]->add('members_divider', mb_strtoupper($this->_members_language->get('members', 'members'), 'UTF-8'), 'divider', 'top', null, $order, '');
-				$navs[2]->add('members', $this->_members_language->get('members', 'members'), URL::build('/panel/members'), 'top', null, $order, $icon);
+				$navs[2]->add('members', $this->_members_language->get('members', 'members'), URL::build('/panel/members'), 'top', null, $order + 0.1, $icon);
 			}
 		}
 	}
