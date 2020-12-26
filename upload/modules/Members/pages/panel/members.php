@@ -1,13 +1,13 @@
 <?php
 /*
- *	Made by Partydragen And Samerton
+ *	Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  *
- *  Panel API page
+ *  Panel Members page
  */
 
 // Can the user view the panel?
@@ -85,11 +85,11 @@ if(Input::exists()){
 		$error = $language->get('general', 'invalid_token');
 	}
 }
-// Retrive link_location from cache
+// Retrieve link_location from cache
 $cache->setCache('members_module_cache');
 $link_location = $cache->retrieve('link_location');
 
-// Retrive Icon from cache
+// Retrieve Icon from cache
 $cache->setCache('navbar_icons');
 $icon = $cache->retrieve('members_icon');
 

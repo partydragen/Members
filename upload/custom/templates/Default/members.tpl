@@ -15,7 +15,7 @@
 		</li>
 		{foreach from=$GROUPS item=groups}
 		<li class="nav-item">
-		  <a href="{$groups.grouplink}" class="nav-link">{$groups.groupname}</a>
+		  <a href="{$groups.link}" class="nav-link">{$groups.name}</a>
 		</li>
 		{/foreach}
 	  </ul>
@@ -31,8 +31,8 @@
 		  <tbody>
 			{foreach from=$MEMBERS item=member}
 			  <tr>
-			    <td><a href="{$member.profile}"><img src="{$member.avatar}" class="rounded" style="height:35px; width:35px;" alt="{$member.nickname}" /></a> <a style="color:{$member.group_colour};" href="{$member.profile}">{$member.nickname}</a></td>
-				<td>{$member.group}</td>
+			    <td><a href="{$member.profile}"><img src="{$member.avatar}" class="rounded" style="height:35px; width:35px;" alt="{$member.nickname}" /></a> <a style="{$member.style}" href="{$member.profile}">{{$member.nickname}}</a></td>
+				<td>{foreach from=$member.groups item=group}{$group}{/foreach}</td>
 				<td>{$member.joined}</td>
 			  </tr>
 			{/foreach}

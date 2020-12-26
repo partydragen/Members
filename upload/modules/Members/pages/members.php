@@ -1,9 +1,9 @@
 <?php
 /*
- *	Made by Partydragen And Samerton
+ *	Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr6
+ *  NamelessMC version 2.0.0-pr8
  *
  *  License: MIT
  */
@@ -14,47 +14,46 @@ $page_title = $members_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if(rtrim($_GET['route'], '/') == "/members") {
-	$users = $queries->orderAll("users", "USERNAME", "ASC");			
+	// Load all users
+	$users = DB::getInstance()->query('SELECT id FROM nl2_users')->results();
 } else {
-	$usergroups1 = explode('/', $_GET['route']);
-	$usergroups2 = explode('_', $usergroups1[3]);
-	$users = $queries->getWhere('users', array('group_id', '=', $usergroups2[1]));
+	// Sort by groups
+	$gid = explode('/', $route);
+	$gid = $gid[count($gid) - 1];
+	
+	if (!strlen($gid)) {
+		require_once(ROOT_PATH . '/404.php');
+		die();
+	}
+	
+	if (!is_numeric($gid[0])) {
+		require_once(ROOT_PATH . '/404.php');
+		die();
+	}
+
+	$users = DB::getInstance()->query('SELECT DISTINCT(user_id) AS id FROM nl2_users_groups INNER JOIN nl2_users ON user_id=nl2_users.id WHERE group_id = ?', array($gid[0]))->results();
 }
 
-$groups = $queries->orderAll('groups', '`order`', 'ASC');
-$user_array = array();
-	
-foreach($groups as $group1){
+$groups = $queries->orderAll('groups', '`order`', 'ASC');	
+foreach($groups as $group){
 	$group_array[] = array(
-		'groupname' => $group1->name,
-		'grouplink' => URL::build('/members/sort/' . Output::getClean($group1->name) .'_'. Output::getClean($group1->id)),
+		'name' => $group->name,
+		'link' => URL::build('/members/' . Output::getClean($group->id) .'-'. Output::getClean($group->name)),
 	);
 }
 
-foreach($users as $individual){
-	if(isset($selected_staff_group)){
-		$user_group = $selected_staff_group->group_html;
-	} else {
-		$user_group = "";
-		foreach($groups as $group){
-			if($group->id === $individual->group_id){
-				$user_group = $group->group_html;
-				$style = $group->group_username_css;
-				break;
-			}
-		}
-	}
-		
-	$avatar = $user->getAvatar($individual->id, "../", 35);
-		
+$user_array = array();
+foreach($users as $item){
+	$target_user = new User($item->id);
+
 	$user_array[] = array(
-		'username' => Output::getClean($individual->username),
-		'nickname' => Output::getClean($individual->nickname),
-		'avatar' => $avatar,
-		'group' => $user_group,
-		'group_colour' => $style,
-		'joined' => date('d M Y', $individual->joined),
-		'profile' => URL::build('/profile/' . Output::getClean($individual->username))
+		'username' => $target_user->getDisplayname(true),
+		'nickname' => $target_user->getDisplayname(),
+		'avatar' => $target_user->getAvatar(),
+		'groups' => $target_user->getAllGroups(true),
+		'style' => $target_user->getGroupClass(),
+		'joined' => date('d M Y', $target_user->data()->joined),
+		'profile' => $target_user->getProfileURL()
 	);
 }
 	
