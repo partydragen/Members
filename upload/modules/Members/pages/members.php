@@ -31,7 +31,7 @@ if(rtrim($_GET['route'], '/') == "/members") {
 		die();
 	}
 
-	$users = DB::getInstance()->query('SELECT DISTINCT(user_id) AS id FROM nl2_users_groups INNER JOIN nl2_users ON user_id=nl2_users.id WHERE group_id = ?', array($gid[0]))->results();
+	$users = DB::getInstance()->query('SELECT DISTINCT(user_id) AS id FROM nl2_users_groups INNER JOIN nl2_users ON user_id=nl2_users.id WHERE nl2_users_groups.group_id = ?', array($gid[0]))->results();
 }
 
 $groups = $queries->orderAll('groups', '`order`', 'ASC');	
