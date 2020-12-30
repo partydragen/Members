@@ -53,6 +53,14 @@
                                 <input type="text" class="form-control" name="icon" id="inputIcon" placeholder="{$ICON_EXAMPLE}" value="{$ICON_VALUE}">
                             </div>
                             <div class="form-group">
+                                <label for="inputHideGroups">{$HIDE_GROUPS_FROM_TAB}</label>
+                                <select class="form-control" name="hided_groups[]" id="inputHideGroups" multiple>
+                                    {foreach from=$GROUPS item=item}
+                                        <option value="{$item->id}"{if in_array($item->id, $HIDE_GROUPS_VALUE)} selected{/if}>{$item->name|escape}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>

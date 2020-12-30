@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  */
@@ -35,8 +35,19 @@ if(rtrim($_GET['route'], '/') == "/members") {
     $users = DB::getInstance()->query('SELECT DISTINCT(user_id) AS id FROM nl2_users_groups INNER JOIN nl2_users ON user_id=nl2_users.id WHERE nl2_users_groups.group_id = ?', array($gid[0]))->results();
 }
 
+// Retrieve hided groups from cache
+$cache->setCache('members_module_cache');
+$hided_groups = array();
+if($cache->isCached('hided_groups')) {
+    $hided_groups = $cache->retrieve('hided_groups');
+}
+
 $groups = $queries->orderAll('groups', '`order`', 'ASC');   
 foreach($groups as $group){
+    if(in_array($group->id, $hided_groups)) {
+        continue;
+    }
+    
     $group_array[] = array(
         'name' => $group->name,
         'link' => URL::build('/members/' . Output::getClean($group->id) .'-'. Output::getClean($group->name)),
