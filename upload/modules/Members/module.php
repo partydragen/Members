@@ -3,7 +3,7 @@
  *	Made by Partydragen And Samerton
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -18,8 +18,8 @@ class Members_Module extends Module {
 		
 		$name = 'Members';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.1.1';
-		$nameless_version = '2.0.0-pr8';
+		$module_version = '2.2.0';
+		$nameless_version = '2.0.0-pr9';
 		
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 		

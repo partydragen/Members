@@ -11,27 +11,7 @@
  */
 
 // Can the user view the panel?
-if($user->isLoggedIn()){
-    if(!$user->canViewACP()){
-        // No
-        Redirect::to(URL::build('/'));
-        die();
-    }
-    if(!$user->isAdmLoggedIn()){
-        // Needs to authenticate
-        Redirect::to(URL::build('/panel/auth'));
-        die();
-    } else {
-        if(!$user->hasPermission('memberslist.edit')){
-            require_once(ROOT_PATH . '/404.php');
-            die();
-        }
-    }
-} else {
-    // Not logged in
-    Redirect::to(URL::build('/login'));
-    die();
-}
+$user->handlePanelPageLoad('memberslist.edit');
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'members');
