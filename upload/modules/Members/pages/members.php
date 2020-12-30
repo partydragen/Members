@@ -135,7 +135,8 @@ $template->addJSScript('
     ');
 }
 
-$smarty->assign('WIDGETS', $widgets->getWidgets());
+$smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+$smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
 require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
