@@ -50,7 +50,7 @@ foreach($groups as $group){
     
     $group_array[] = array(
         'name' => $group->name,
-        'link' => URL::build('/members/' . Output::getClean($group->id) .'-'. Output::getClean($group->name)),
+        'link' => URL::build('/members/' . Output::getClean($group->id) .'-'. str_replace('/', '-', Output::getClean($group->name))),
     );
 }
 
