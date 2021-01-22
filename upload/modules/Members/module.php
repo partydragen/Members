@@ -35,7 +35,10 @@ class Members_Module extends Module {
 			if($module_version != $cache->retrieve('module_version')) {
 				// Version have changed, Perform actions
 				$cache->store('module_version', $module_version);
-				$cache->erase('update_check');
+				
+                if($cache->isCached('update_check')){
+                    $cache->erase('update_check');
+                }
 			}
 		}
 	}
