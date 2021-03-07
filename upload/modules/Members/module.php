@@ -165,7 +165,7 @@ class Members_Module extends Module {
                         'CURRENT_VERSION' => str_replace('{x}', $this->getVersion(), $this->_members_language->get('members', 'current_version_x')),
                         'NEW_VERSION' => str_replace('{x}', Output::getClean($update_check->new_version), $this->_members_language->get('members', 'new_version_x')),
                         'UPDATE' => $this->_members_language->get('members', 'view_resource'),
-                        'UPDATE_LINK' => 'https://partydragen.com/resources/resource/3-members-list/'
+                        'UPDATE_LINK' => Output::getClean($update_check->link)
                     ));
 				}
             }

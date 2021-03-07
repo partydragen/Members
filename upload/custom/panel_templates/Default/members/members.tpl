@@ -65,6 +65,8 @@
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
 						</form>
+                        
+                        <center><p>Members Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></p></center>
                     </div>
                 </div>
 

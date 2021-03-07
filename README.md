@@ -7,6 +7,9 @@
 ## Notes:
 - If you are using a custom template, make sure you add the template file (in the **custom/templates/DefaultRevamp** directory) to your custom template!
 
+## Patreon
+If you like to help out with the development and get early access to new updates and new modules check out [https://www.patreon.com/partydragen/](https://www.patreon.com/partydragen)
+
 ## Minecraft Community website:
 If you own a minecraft server i will love if you add your minecraft server to my Minecraft Community website, and adding your voting link to your website :)
 There is also monthly 15 USD giveaways so register today :P
