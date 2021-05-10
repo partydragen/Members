@@ -89,37 +89,8 @@ define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get
 
 $template->onPageLoad();
 
-if(TEMPLATE != 'DefaultRevamp') {
-$template->addCSSFiles(array(
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
-));
-
-$template->addJSFiles(array(
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
-    (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => array()
-));
-
-$template->addJSScript('
-    $(document).ready(function() {
-        $(\'.dataTables-users\').dataTable({
-            responsive: true,
-            language: {
-                "lengthMenu": "' . $language->get('table', 'display_records_per_page') . '",
-                "zeroRecords": "' . $language->get('table', 'nothing_found') . '",
-                "info": "' . $language->get('table', 'page_x_of_y') . '",
-                "infoEmpty": "' . $language->get('table', 'no_records') . '",
-                "infoFiltered": "' . $language->get('table', 'filtered') . '",
-                "search": "' . $language->get('general', 'search') . ' ",
-                "paginate": {
-                    "next": "' . $language->get('general', 'next') . '",
-                    "previous": "' . $language->get('general', 'previous') . '"
-                }
-            }
-        });
-    });
-');
-} else {
-    
+if(TEMPLATE == 'DefaultRevamp') {
+    // Default Revamp Template
     $template->addJSFiles(array(
         'https://code.jquery.com/jquery-3.3.1.js' => array(),
         'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' => array(),
@@ -132,6 +103,37 @@ $template->addJSScript('
         $(document).ready(function() {
         $(\'#example\').DataTable();
         } );
+    ');
+
+} else if(TEMPLATE == 'Default' || TEMPLATE == 'Bootstrap Material') {
+    // Default and Bootstrap Material template
+    $template->addCSSFiles(array(
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/css/dataTables.bootstrap4.min.css' => array()
+    ));
+
+    $template->addJSFiles(array(
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/dataTables/jquery.dataTables.min.js' => array(),
+        (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/panel_templates/Default/assets/js/dataTables.bootstrap4.min.js' => array()
+    ));
+
+    $template->addJSScript('
+        $(document).ready(function() {
+            $(\'.dataTables-users\').dataTable({
+                responsive: true,
+                language: {
+                    "lengthMenu": "' . $language->get('table', 'display_records_per_page') . '",
+                    "zeroRecords": "' . $language->get('table', 'nothing_found') . '",
+                    "info": "' . $language->get('table', 'page_x_of_y') . '",
+                    "infoEmpty": "' . $language->get('table', 'no_records') . '",
+                    "infoFiltered": "' . $language->get('table', 'filtered') . '",
+                    "search": "' . $language->get('general', 'search') . ' ",
+                    "paginate": {
+                        "next": "' . $language->get('general', 'next') . '",
+                        "previous": "' . $language->get('general', 'previous') . '"
+                    }
+                }
+            });
+        });
     ');
 }
 
