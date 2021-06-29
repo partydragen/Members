@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr9
+ *  NamelessMC version 2.0.0-pr10
  *
  *  License: MIT
  *
@@ -11,7 +11,10 @@
  */
 
 // Can the user view the panel?
-$user->handlePanelPageLoad('memberslist.edit');
+if(!$user->handlePanelPageLoad('memberslist.edit')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'members');
