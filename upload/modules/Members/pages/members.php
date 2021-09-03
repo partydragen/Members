@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  */
@@ -40,6 +40,7 @@ $cache->setCache('members_module_cache');
 $hided_groups = array();
 if($cache->isCached('hided_groups')) {
     $hided_groups = $cache->retrieve('hided_groups');
+    $hided_groups = is_array($hided_groups) ? $hided_groups : array();
 }
 
 $groups = $queries->orderAll('groups', '`order`', 'ASC');   
