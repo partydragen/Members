@@ -119,6 +119,7 @@ if (isset($errors) && count($errors))
 
 $smarty->assign(array(
     'PARENT_PAGE' => PARENT_PAGE,
+    'PAGE' => PANEL_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'MEMBERS' => $members_language->get('members', 'members'),
     'LINK_LOCATION' => $members_language->get('members', 'link_location'),
