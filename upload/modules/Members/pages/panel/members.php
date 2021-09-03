@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr10
+ *  NamelessMC version 2.0.0-pr11
  *
  *  License: MIT
  *
@@ -59,9 +59,9 @@ if(Input::exists()){
                 // Update Link location cache
                 $cache->setCache('members_module_cache');
                 $cache->store('link_location', $location);
-                
+
                 // Update hided groups
-                $cache->store('hided_groups', $_POST['hided_groups']);
+                $cache->store('hided_groups', isset($_POST['hided_groups']) && is_array($_POST['hided_groups']) ? $_POST['hided_groups'] : array());
                 
                 Session::flash('members_success', $members_language->get('members', 'settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/members'));
@@ -87,6 +87,7 @@ $link_location = $cache->retrieve('link_location');
 $hided_groups = array();
 if($cache->isCached('hided_groups')) {
     $hided_groups = $cache->retrieve('hided_groups');
+    $hided_groups = is_array($hided_groups) ? $hided_groups : array();
 }
 
 // Get all groups
