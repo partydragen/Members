@@ -1,0 +1,17 @@
+{
+    "members\/all": "Všichni",
+    "members\/created": "Vytvořeno",
+    "members\/current_version_x": "Současná verze doplňku: {{version}}",
+    "members\/group": "Skupina",
+    "members\/hide_groups_from_tab": "Skrýt skupiny ze zobrazování v liště. Ctrl+Kliknutí pro vybrání \/ zrušení vybrání více skupin.",
+    "members\/icon": "Ikona",
+    "members\/icon_example": "Například: <i class=\"fa fa-users\" aria-hidden=\"true\"><\/i>",
+    "members\/link_location": "Lokace odkazu",
+    "members\/members": "Uživatelé",
+    "members\/new_update_available_x": "Je dostupná nová aktualizace doplňku {{module}}",
+    "members\/new_urgent_update_available_x": "Je dostupná nová závažná aktualizace doplňku {{module}}. Aktualizujte co nejdříve je to možné!",
+    "members\/new_version_x": "Nová verze doplňku: {{new_version}}",
+    "members\/settings_updated_successfully": "Settings updated successfully.",
+    "members\/username": "Uživatelské jméno",
+    "members\/view_resource": "Zobrazit doplněk"
+}

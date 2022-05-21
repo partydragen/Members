@@ -1,0 +1,17 @@
+{
+    "members\/all": "Todos",
+    "members\/created": "Creado",
+    "members\/current_version_x": "Versión actual del módulo: {{version}}",
+    "members\/group": "Grupo",
+    "members\/hide_groups_from_tab": "Ocultar los grupos para que no se muestren en la barra. Ctrl+clic para seleccionar\/deseleccionar varios grupos.",
+    "members\/icon": "Icono",
+    "members\/icon_example": "Ejemplo: <i class=\"fa fa-users\" aria-hidden=\"true\"><\/i>",
+    "members\/link_location": "Ubicación del vínculo",
+    "members\/members": "Miembros",
+    "members\/new_update_available_x": "Hay una nueva actualización disponible para el módulo {{module}}",
+    "members\/new_urgent_update_available_x": "Hay una nueva actualización urgente disponible para el módulo {{module}}. ¡Por favor, actualice lo antes posible!",
+    "members\/new_version_x": "Nueva versión del módulo: {{new_version}}",
+    "members\/settings_updated_successfully": "La configuración se ha actualizado correctamente.",
+    "members\/username": "Nombre de usuario",
+    "members\/view_resource": "Ver recurso"
+}

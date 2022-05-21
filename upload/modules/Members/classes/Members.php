@@ -3,7 +3,7 @@
  *	Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr8
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  */
@@ -18,21 +18,20 @@ class Members {
 
         // Check for updates
         if (!$current_version) {
-            $current_version = $queries->getWhere('settings', array('name', '=', 'nameless_version'));
+            $current_version = $queries->getWhere('settings', ['name', '=', 'nameless_version']);
             $current_version = $current_version[0]->value;
         }
 
-        $uid = $queries->getWhere('settings', array('name', '=', 'unique_id'));
+        $uid = $queries->getWhere('settings', ['name', '=', 'unique_id']);
         $uid = $uid[0]->value;
-		
+
 		$enabled_modules = Module::getModules();
-		foreach($enabled_modules as $enabled_item){
-			if($enabled_item->getName() == 'Members'){
+		foreach ($enabled_modules as $enabled_item) {
+			if ($enabled_item->getName() == 'Members') {
 				$module = $enabled_item;
 				break;
 			}
 		}
-		
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -46,7 +45,7 @@ class Members {
 		if (isset($info->message)) {
 			die($info->message);
 		}
-		
+
         return $update_check;
     }
 }

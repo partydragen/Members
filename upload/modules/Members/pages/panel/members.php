@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr11
+ *  NamelessMC version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -11,7 +11,7 @@
  */
 
 // Can the user view the panel?
-if(!$user->handlePanelPageLoad('memberslist.edit')) {
+if (!$user->handlePanelPageLoad('memberslist.edit')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -23,23 +23,22 @@ $page_title = $members_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Deal with input
-if(Input::exists()){
-    if(Token::check(Input::get('token'))){
-        $validate = new Validate();
-        $validation = $validate->check($_POST, array(
-            'link_location' => array(
-                'required' => true
-            ),
-            'icon' => array(
-                'max' => 64
-            )
-        ));
-        
-        if($validation->passed()){
+if (Input::exists()) {
+    if (Token::check(Input::get('token'))) {
+        $validation = Validate::check($_POST, [
+            'link_location' => [
+                Validate::REQUIRED => true
+            ],
+            'icon' => [
+                Validate::MAX => 64
+            ]
+        ]);
+
+        if ($validation->passed()) {
             try {
                 // Get link location
-                if(isset($_POST['link_location'])){
-                    switch($_POST['link_location']){
+                if (isset($_POST['link_location'])) {
+                    switch ($_POST['link_location']) {
                         case 1:
                         case 2:
                         case 3:
@@ -51,24 +50,26 @@ if(Input::exists()){
                     }
                 } else
                     $location = 1;
-                
+
                 // Update Icon cache
                 $cache->setCache('navbar_icons');
                 $cache->store('members_icon', Input::get('icon'));
-                
+
                 // Update Link location cache
                 $cache->setCache('members_module_cache');
                 $cache->store('link_location', $location);
 
                 // Update hided groups
-                $cache->store('hided_groups', isset($_POST['hided_groups']) && is_array($_POST['hided_groups']) ? $_POST['hided_groups'] : array());
-                
+                $cache->store('hided_groups', isset($_POST['hided_groups']) && is_array($_POST['hided_groups']) ? $_POST['hided_groups'] : []);
+
                 Session::flash('members_success', $members_language->get('members', 'settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/members'));
-                die();
-            } catch(Exception $e){
+            } catch (Exception $e) {
                 die($e->getMessage());
             }
+        } else {
+            // Validation Errors
+            $errors = $validation->errors();
         }
     } else {
         $error = $language->get('general', 'invalid_token');
@@ -84,40 +85,40 @@ $cache->setCache('members_module_cache');
 $link_location = $cache->retrieve('link_location');
 
 // Retrieve hided groups
-$hided_groups = array();
-if($cache->isCached('hided_groups')) {
+$hided_groups = [];
+if ($cache->isCached('hided_groups')) {
     $hided_groups = $cache->retrieve('hided_groups');
-    $hided_groups = is_array($hided_groups) ? $hided_groups : array();
+    $hided_groups = is_array($hided_groups) ? $hided_groups : [];
 }
 
 // Get all groups
 $groups = $queries->orderAll('groups', '`order`', 'ASC');   
-foreach($groups as $group){
-    $group_array[] = array(
+foreach ($groups as $group) {
+    $group_array[] = [
         'id' => $group->id,
         'name' => Output::getClean($group->name),
-    );
+    ];
 }
 
 // Load modules + template
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if (Session::exists('members_success'))
     $success = Session::flash('members_success');
 
 if (isset($success))
-    $smarty->assign(array(
+    $smarty->assign([
         'SUCCESS' => $success,
         'SUCCESS_TITLE' => $language->get('general', 'success')
-    ));
+    ]);
 
 if (isset($errors) && count($errors))
-    $smarty->assign(array(
+    $smarty->assign([
         'ERRORS' => $errors,
         'ERRORS_TITLE' => $language->get('general', 'error')
-    ));
+    ]);
 
-$smarty->assign(array(
+$smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'PAGE' => PANEL_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
@@ -136,10 +137,7 @@ $smarty->assign(array(
     'HIDE_GROUPS_VALUE' => $hided_groups,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
-));
-
-$page_load = microtime(true) - $start;
-define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
+]);
 
 $template->onPageLoad();
 
