@@ -43,7 +43,8 @@ if ($cache->isCached('hided_groups')) {
     $hided_groups = is_array($hided_groups) ? $hided_groups : [];
 }
 
-$groups = $queries->orderAll('groups', '`order`', 'ASC');   
+$group_array = [];
+$groups = DB::getInstance()->orderAll('groups', '`order`', 'ASC')->results();   
 foreach ($groups as $group) {
     if (in_array($group->id, $hided_groups)) {
         continue;

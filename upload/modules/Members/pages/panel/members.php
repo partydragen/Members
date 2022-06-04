@@ -92,7 +92,8 @@ if ($cache->isCached('hided_groups')) {
 }
 
 // Get all groups
-$groups = $queries->orderAll('groups', '`order`', 'ASC');   
+$group_array = [];
+$groups = DB::getInstance()->orderAll('groups', '`order`', 'ASC')->results(); 
 foreach ($groups as $group) {
     $group_array[] = [
         'id' => $group->id,
