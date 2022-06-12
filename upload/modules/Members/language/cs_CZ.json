@@ -11,7 +11,7 @@
     "members\/new_update_available_x": "Je dostupná nová aktualizace doplňku {{module}}",
     "members\/new_urgent_update_available_x": "Je dostupná nová závažná aktualizace doplňku {{module}}. Aktualizujte co nejdříve je to možné!",
     "members\/new_version_x": "Nová verze doplňku: {{new_version}}",
-    "members\/settings_updated_successfully": "Settings updated successfully.",
+    "members\/settings_updated_successfully": "Nastavení úspěšně aktualizována.",
     "members\/username": "Uživatelské jméno",
     "members\/view_resource": "Zobrazit doplněk"
 }
