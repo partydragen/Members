@@ -173,5 +173,6 @@ class Members_Module extends Module {
 	}
 
     public function getDebugInfo(): array {
+        return [];
     }
 }
