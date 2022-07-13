@@ -13,9 +13,17 @@ define('PAGE', 'members');
 $page_title = $members_language->get('members', 'members');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+// Hide banned members
+$cache->setCache('members_module_cache');
+$hide_banned_members = false;
+if ($cache->isCached('hide_banned_members')) {
+    $hide_banned_members = $cache->retrieve('hide_banned_members');
+    $hide_banned_members = $hide_banned_members;
+}
+
 if (rtrim($_GET['route'], '/') == "/members") {
     // Load all users
-    $users = DB::getInstance()->query('SELECT id FROM nl2_users')->results();
+    $users = DB::getInstance()->query('SELECT id FROM nl2_users' . ($hide_banned_members ? ' WHERE isbanned = 0' : ''))->results();
 } else {
     // Sort by groups
     $gid = explode('/', $route);
@@ -32,11 +40,10 @@ if (rtrim($_GET['route'], '/') == "/members") {
         die();
     }
 
-    $users = DB::getInstance()->query('SELECT DISTINCT(user_id) AS id FROM nl2_users_groups INNER JOIN nl2_users ON user_id=nl2_users.id WHERE nl2_users_groups.group_id = ?', [$gid[0]])->results();
+    $users = DB::getInstance()->query('SELECT DISTINCT(user_id) AS id FROM nl2_users_groups INNER JOIN nl2_users ON user_id=nl2_users.id WHERE nl2_users_groups.group_id = ? ' . ($hide_banned_members ? ' AND isbanned = 0' : ''), [$gid[0]])->results();
 }
 
 // Retrieve hided groups from cache
-$cache->setCache('members_module_cache');
 $hided_groups = [];
 if ($cache->isCached('hided_groups')) {
     $hided_groups = $cache->retrieve('hided_groups');

@@ -62,6 +62,11 @@ if (Input::exists()) {
                 // Update hided groups
                 $cache->store('hided_groups', isset($_POST['hided_groups']) && is_array($_POST['hided_groups']) ? $_POST['hided_groups'] : []);
 
+                // Update hide banned members
+                if (isset($_POST['hide_banned_members']) && $_POST['hide_banned_members'] == 'on') $hide_banned_members = true;
+                else $hide_banned_members = false;
+                $cache->store('hide_banned_members', $hide_banned_members);
+
                 Session::flash('members_success', $members_language->get('members', 'settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/members'));
             } catch (Exception $e) {
@@ -89,6 +94,13 @@ $hided_groups = [];
 if ($cache->isCached('hided_groups')) {
     $hided_groups = $cache->retrieve('hided_groups');
     $hided_groups = is_array($hided_groups) ? $hided_groups : [];
+}
+
+// Hide banned members
+$hide_banned_members = false;
+if ($cache->isCached('hide_banned_members')) {
+    $hide_banned_members = $cache->retrieve('hide_banned_members');
+    $hide_banned_members = $hide_banned_members;
 }
 
 // Get all groups
@@ -136,6 +148,8 @@ $smarty->assign([
     'GROUPS' => $groups,
     'HIDE_GROUPS_FROM_TAB' => $members_language->get('members', 'hide_groups_from_tab'),
     'HIDE_GROUPS_VALUE' => $hided_groups,
+    'HIDE_BANNED_MEMBERS' => $members_language->get('members', 'hide_banned_members'),
+    'HIDE_BANNED_MEMBERS_VALUE' => $hide_banned_members,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')
 ]);
