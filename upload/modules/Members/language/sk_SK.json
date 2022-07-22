@@ -1,1 +1,18 @@
-{}
+{
+    "members/created": "Vytvorený",
+    "members/group": "Skupina",
+    "members/hide_banned_members": "Skryť zabanovaných členov",
+    "members/icon": "Ikona",
+    "members/icon_example": "Príklad: <i class=\"fa fa-users\" aria-hidden=\"true\"></i>",
+    "members/link_location": "Umiestnenie odkazu",
+    "members/members": "Užívatelia",
+    "members/new_update_available_x": "K dispozícii je nová aktualizácia modulu {{module}}",
+    "members/new_urgent_update_available_x": "Pre modul {{module}} je k dispozícii nová urgentná aktualizácia. Aktualizujte prosím čo najskôr!",
+    "members/new_version_x": "Nová verzia modulu: {{new_version}}",
+    "members/settings_updated_successfully": "Nastavenia boli úspešne aktualizované.",
+    "members/username": "Užívateľské meno",
+    "members/view_resource": "Zobraziť stránku modulu",
+    "members/all": "Všetci",
+    "members/current_version_x": "Súčasná verzia modulu {{version}}",
+    "members/hide_groups_from_tab": "Skryť skupiny zo zobrazovania v lište. Ctrl+Kliknutie pre vybranie / zrušenie vybrania viacerých skupín."
+}
