@@ -1,4 +1,4 @@
-# Members List Module for NamelessMC v2.0.0 pr10 & pr 11
+# Members List Module for NamelessMC v2.0.0
 
 ## Installation:
 - Upload the contents of the **upload** directory straight into your NamelessMC installation's directory

@@ -3,7 +3,7 @@
  *	Made by Partydragen And Samerton
  *  https://github.com/partydragen/Members/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr13
+ *  NamelessMC version 2.0.0
  *
  *  License: MIT
  *
@@ -19,8 +19,8 @@ class Members_Module extends Module {
 		$name = 'Members';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
 		$module_version = '2.3.2';
-		$nameless_version = '2.0.0-pr13';
-		
+		$nameless_version = '2.0.0';
+
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
 		// Define URLs which belong to this module
@@ -42,21 +42,18 @@ class Members_Module extends Module {
 			}
 		}
 	}
-	
-	public function onInstall() {
-		// Queries
-		$queries = new Queries();
 
+	public function onInstall() {
 		try {
 			// Update main admin group permissions
-			$group = $queries->getWhere('groups', ['id', '=', 2]);
+			$group = DB::getInstance()->get('groups', ['id', '=', 2])->results();
 			$group = $group[0];
 
 			$group_permissions = json_decode($group->permissions, TRUE);
 			$group_permissions['memberslist.edit'] = 1;
 
 			$group_permissions = json_encode($group_permissions);
-			$queries->update('groups', 2, ['permissions' => $group_permissions]);
+			DB::getInstance()->update('groups', 2, ['permissions' => $group_permissions]);
 		} catch (Exception $e) {
 			// Error
 		}
@@ -164,8 +161,8 @@ class Members_Module extends Module {
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
                         'CURRENT_VERSION' => $this->_members_language->get('members', 'current_version_x', ['version' => Output::getClean($this->getVersion())]),
                         'NEW_VERSION' => $this->_members_language->get('members', 'new_version_x', ['new_version' => Output::getClean($update_check->new_version)]),
-                        'UPDATE' => $this->_members_language->get('members', 'view_resource'),
-                        'UPDATE_LINK' => Output::getClean($update_check->link)
+                        'NAMELESS_UPDATE' => $this->_members_language->get('members', 'view_resource'),
+                        'NAMELESS_UPDATE_LINK' => Output::getClean($update_check->link)
                     ]);
                 }
             }
