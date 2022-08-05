@@ -18,7 +18,7 @@ class Members_Module extends Module {
 
 		$name = 'Members';
 		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>, <a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
-		$module_version = '2.3.2';
+		$module_version = '2.3.3';
 		$nameless_version = '2.0.0';
 
 		parent::__construct($this, $name, $author, $module_version, $nameless_version);
