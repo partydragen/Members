@@ -13,6 +13,6 @@
     "members/new_version_x": "Neue Modulversion: {{new_version}}",
     "members/settings_updated_successfully": "Einstellungen erfolgreich aktualisiert.",
     "members/username": "Benutzername",
-    "members/view_resource": "View Resource",
+    "members/view_resource": "Ressource anzeigen",
     "members/hide_banned_members": "Gebannte Benutzer ausblenden"
 }
