@@ -72,7 +72,7 @@ foreach ($users as $item) {
         'nickname' => $target_user->getDisplayname(),
         'avatar' => $target_user->getAvatar(),
         'groups' => $target_user->getAllGroupHtml(),
-        'style' => $target_user->getGroupClass(),
+        'style' => $target_user->getGroupStyle(),
         'joined' => date(DATE_FORMAT, $target_user->data()->joined),
         'profile' => $target_user->getProfileURL()
     ];
